@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Cold Mist / Silent Theme (Light Mode) */
+  --macos-window-bg: #f5f5f5; /* Moon White / Aurora White */
+  --macos-sidebar-bg: #d0d8e0; /* Glacier Thin Blue */
+  --macos-text: #6e7f85; /* Storm Grey Blue */
+  --macos-text-secondary: #b0c4de; /* Light Steel Blue */
+  --macos-border: #d0d8e0;
+  --macos-divider: #c3d7e8;
+  --macos-input-bg: #ffffff;
+  --macos-active: #98afc7; /* Haze Grey Blue (Accent) */
+  --macos-active-secondary: #a7b4c9; /* Misty Rain Blue */
+}
+
+.dark {
+  /* Dark Mode Theme */
+  --macos-window-bg: #1c2a33; /* Dark Blue-Black */
+  --macos-sidebar-bg: #2d3f47; /* Card Background */
+  --macos-text: #c3d7e8; /* Glacier Thin Blue (as White) */
+  --macos-text-secondary: #98afc7; /* Haze Grey Blue */
+  --macos-border: #3d5059;
+  --macos-divider: #3d5059;
+  --macos-input-bg: #2d3f47;
+  --macos-active: #a7b4c9; /* Misty Rain Blue (Highlight) */
+  --macos-active-secondary: #98afc7;
+}
+
+body {
+  @apply bg-transparent text-macos-text font-sans text-sm antialiased overflow-hidden;
+  user-select: none; /* Native app feel */
+}
+
+/* Custom Scrollbar to look like macOS */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-400/50 rounded-full;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-400/80;
+}
