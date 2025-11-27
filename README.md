@@ -1,28 +1,73 @@
 # Ruskview
 
-A high-performance, native-feeling Elasticsearch/OpenSearch client for macOS, built with Tauri (Rust) and React.
+> A high-performance, native-feeling Elasticsearch/OpenSearch client for macOS.
 
-## Functional Scope
+![Version](https://img.shields.io/badge/version-0.0.1-blue.svg)
+![License](https://img.shields.io/badge/license-MIT-green.svg)
+![Tauri](https://img.shields.io/badge/Tauri-v2-orange.svg)
 
-### 1. Connection Management
-- Support connecting to multiple Elasticsearch/OpenSearch clusters.
-- Support Basic Authentication (Username/Password).
-- Persist connection details (securely, if possible).
+**Ruskview** is a modern desktop application designed to provide a seamless and efficient experience for managing and querying Elasticsearch and OpenSearch clusters. Built with the "Backend for Performance, Frontend for Experience" philosophy, it combines the raw speed of Rust with the flexibility of React.
 
-### 2. Search Capabilities
-- **Raw Query Support**: Allow users to input raw JSON queries (DSL) for maximum flexibility.
-- **High Performance**: Utilize a persistent HTTP client pool in the Rust backend to handle high-throughput requests.
+## ✨ Features
 
-### 3. Data Visualization
-- **Results Table**: A virtualized, high-performance table to display thousands of search hits without lag.
-- **JSON Inspector**: A developer-friendly JSON viewer for inspecting individual document details with syntax highlighting.
+### 🔌 Connection Management
+- **Multi-Cluster Support**: Easily switch between different environments (Dev, Staging, Prod).
+- **Secure Storage**: Connection profiles (including credentials) are encrypted and stored locally using SQLite and `magic_crypt`.
+- **Authentication**: Supports Basic Auth and AWS IAM (SigV4) authentication.
 
-### 4. User Interface
-- **macOS Native Feel**: The UI must strictly follow Apple's Human Interface Guidelines.
-- **Responsive**: Fast interactions and smooth animations.
+### 🔍 Search & Query
+- **Raw DSL Support**: Full power of Elasticsearch JSON DSL for complex queries.
+- **High Performance**: Rust-based HTTP client pool (`reqwest`) ensures low-latency request handling.
 
-## Development
-Please refer to the `project_docs/` directory for detailed architecture and design guidelines.
-- `01_architecture_blueprint.md`
-- `02_backend_design.md`
-- `03_frontend_design.md`
+### 📊 Visualization & Dashboard
+- **Cluster Health**: Real-time view of cluster status, node count, and shard allocation.
+- **Native UI**: Strictly follows Apple's Human Interface Guidelines (HIG) for a native macOS feel.
+- **Dark Mode**: Automatic system theme detection.
+
+## 🛠️ Tech Stack
+
+- **Core**: [Tauri v2](https://tauri.app/) (Rust)
+- **Frontend**: React, TypeScript, Tailwind CSS
+- **State Management**: Zustand
+- **Backend Storage**: SQLite (`rusqlite`)
+- **HTTP Client**: `reqwest`
+
+## 🚀 Getting Started
+
+### Prerequisites
+- **Rust**: `stable` toolchain
+- **Node.js**: v18+
+- **Package Manager**: `npm` or `pnpm`
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/XuanLee-HEALER/ruskview.git
+   cd ruskview
+   ```
+
+2. Install frontend dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Run in development mode:
+   ```bash
+   npm run tauri dev
+   ```
+   Or using the helper script:
+   ```bash
+   ./run_dev.sh
+   ```
+
+## 📂 Architecture
+
+For detailed design documentation, please refer to the `.github/instructions/` directory:
+- [Architecture Blueprint](.github/instructions/01_arch_blueprint.instructions.md)
+- [Backend Design](.github/instructions/02_backend_design.instructions.md)
+- [Frontend Design](.github/instructions/03_frontend_design.instructions.md)
+
+## 📄 License
+
+This project is licensed under the MIT License.
