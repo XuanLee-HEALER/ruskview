@@ -1,6 +1,6 @@
 [package]
 name = "ruskview"
-version = "0.0.1"
+version = "0.0.2"
 edition = "2024"
 
 [build-dependencies]
@@ -28,3 +28,4 @@ tracing-appender = "0.2"
 rusqlite = { version = "0.32", features = ["bundled"] }
 magic-crypt = "3.1"
 uuid = { version = "1.10", features = ["v4", "serde"] }
+async-trait = "0.1.89"

@@ -206,7 +206,7 @@ export function Login() {
               Cluster URL
             </label>
             <div className="relative">
-              <Server className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-400" />
+              <Server className="absolute left-2.5 top-2.5 h-4 w-4 text-macos-textSecondary" />
               <input
                 type="text"
                 value={url}
@@ -245,78 +245,76 @@ export function Login() {
           ) : (
             <>
               <div>
-                <label className="mb-1 block text-xs font-medium text-macos-textSecondary">
-                  Access Key ID
-                </label>
-                <div className="relative">
-                  <Key className="absolute left-2.5 top-2.5 h-4 w-4 text-macos-icon" />
-                  <input
-                    type="text"
-                    value={accessKey}
-                    onChange={(e) => setAccessKey(e.target.value)}
-                    className="w-full rounded-md border border-macos-border bg-macos-input py-2 pl-9 pr-3 text-sm text-macos-text focus:border-macos-active focus:outline-none focus:ring-1 focus:ring-macos-active"
-                  />
-                </div>
-              </div>
-              <div>
-                <label className="mb-1 block text-xs font-medium text-macos-textSecondary">
-                  Secret Access Key
-                </label>
-                <div className="relative">
-                  <Shield className="absolute left-2.5 top-2.5 h-4 w-4 text-macos-icon" />
-                  <input
-                    type="password"
-                    value={secretKey}
-                    onChange={(e) => setSecretKey(e.target.value)}
-                    className="w-full rounded-md border border-macos-border bg-macos-input py-2 pl-9 pr-3 text-sm text-macos-text focus:border-macos-active focus:outline-none focus:ring-1 focus:ring-macos-active"
-                  />
-                </div>
-              </div>
-              <div>
-                <label className="mb-1 block text-xs font-medium text-macos-textSecondary">
-                  Region
-                </label>
-                <input
-                  type="text"
-                  value={region}
-                  onChange={(e) => setRegion(e.target.value)}
-                  className="w-full rounded-md border border-macos-border bg-macos-input px-3 py-2 text-sm text-macos-text focus:border-macos-active focus:outline-none focus:ring-1 focus:ring-macos-active"
-                />
-              </div>
-            </>
-          )}
-
-          <div className="flex items-center gap-2 pt-2">
-            <input
-              type="checkbox"
-              id="saveProfile"
-              checked={saveProfile}
-              onChange={(e) => setSaveProfile(e.target.checked)}
-              className="h-4 w-4 rounded border-macos-border text-macos-active focus:ring-macos-active"
-            />
-            <label htmlFor="saveProfile" className="text-xs text-macos-textSecondary">
-              Save connection profile
-            </label>
-          </div>
-
-          {saveProfile && (
-            <div>
               <label className="mb-1 block text-xs font-medium text-macos-textSecondary">
-                Profile Name
+                Access Key ID
               </label>
               <div className="relative">
-                <Save className="absolute left-2.5 top-2.5 h-4 w-4 text-macos-icon" />
+                <Key className="absolute left-2.5 top-2.5 h-4 w-4 text-macos-textSecondary" />
                 <input
                   type="text"
-                  value={profileName}
-                  onChange={(e) => setProfileName(e.target.value)}
+                  value={accessKey}
+                  onChange={(e) => setAccessKey(e.target.value)}
                   className="w-full rounded-md border border-macos-border bg-macos-input py-2 pl-9 pr-3 text-sm text-macos-text focus:border-macos-active focus:outline-none focus:ring-1 focus:ring-macos-active"
                 />
               </div>
             </div>
-          )}
+            <div>
+              <label className="mb-1 block text-xs font-medium text-macos-textSecondary">
+                Secret Access Key
+              </label>
+              <div className="relative">
+                <Shield className="absolute left-2.5 top-2.5 h-4 w-4 text-macos-textSecondary" />
+                <input
+                  type="password"
+                  value={secretKey}
+                  onChange={(e) => setSecretKey(e.target.value)}
+                  className="w-full rounded-md border border-macos-border bg-macos-input py-2 pl-9 pr-3 text-sm text-macos-text focus:border-macos-active focus:outline-none focus:ring-1 focus:ring-macos-active"
+                />
+              </div>
+            </div>
+            <div>
+              <label className="mb-1 block text-xs font-medium text-macos-textSecondary">
+                Region
+              </label>
+              <input
+                type="text"
+                value={region}
+                onChange={(e) => setRegion(e.target.value)}
+                className="w-full rounded-md border border-macos-border bg-macos-input px-3 py-2 text-sm text-macos-text focus:border-macos-active focus:outline-none focus:ring-1 focus:ring-macos-active"
+              />
+            </div>
+          </>
+        )}
 
-          <div className="flex gap-3 mt-4">
+        <div className="flex items-center gap-2 pt-2">
+          <input
+            type="checkbox"
+            id="saveProfile"
+            checked={saveProfile}
+            onChange={(e) => setSaveProfile(e.target.checked)}
+            className="h-4 w-4 rounded border-macos-border text-macos-active focus:ring-macos-active"
+          />
+          <label htmlFor="saveProfile" className="text-xs text-macos-textSecondary">
+            Save connection profile
+          </label>
+        </div>
+
+        {saveProfile && (
+          <div>
+            <label className="mb-1 block text-xs font-medium text-macos-textSecondary">
+              Profile Name
+            </label>
+            <div className="relative">
+              <Save className="absolute left-2.5 top-2.5 h-4 w-4 text-macos-textSecondary" />
+              <input
+                type="text"
+                value={profileName}
+                onChange={(e) => setProfileName(e.target.value)}
+                className="w-full rounded-md border border-macos-border bg-macos-input py-2 pl-9 pr-3 text-sm text-macos-text focus:border-macos-active focus:outline-none focus:ring-1 focus:ring-macos-active"
+              />
+            </div>
+          </div>
+        )}          <div className="flex gap-3 mt-4">
             <button
               type="button"
               onClick={handleTestConnection}

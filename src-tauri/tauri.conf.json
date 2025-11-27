@@ -1,6 +1,6 @@
 {
   "productName": "ruskview",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "identifier": "com.ruskview.app",
   "build": {
     "beforeDevCommand": "npm run dev",

@@ -1,13 +1,15 @@
 use crate::db::Database;
+use crate::es::client::EsClient;
 use crate::models::connection::ConnectionProfile;
 use serde_json::Value;
 use std::collections::HashMap;
-use std::sync::Mutex;
+use std::sync::{Arc, Mutex};
 use std::time::Instant;
 use tokio::sync::{RwLock, mpsc, oneshot};
 
 pub struct AppState {
     pub current_profile: RwLock<Option<ConnectionProfile>>,
+    pub active_client: RwLock<Option<Arc<dyn EsClient>>>,
     pub request_queue: mpsc::Sender<RequestJob>,
     pub connection_cache: RwLock<HashMap<String, Instant>>,
     pub db: Mutex<Option<Database>>,
@@ -25,6 +27,7 @@ impl AppState {
     pub fn new(request_queue: mpsc::Sender<RequestJob>, db: Option<Database>) -> Self {
         Self {
             current_profile: RwLock::new(None),
+            active_client: RwLock::new(None),
             request_queue,
             connection_cache: RwLock::new(HashMap::new()),
             db: Mutex::new(db),

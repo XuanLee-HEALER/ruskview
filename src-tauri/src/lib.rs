@@ -152,13 +152,37 @@ pub fn run() {
                         // TODO: Add AWS SigV4 support here using profile.region, access_key, secret_key
 
                         let result = match req_builder.send().await {
-                            Ok(res) => match res.json::<serde_json::Value>().await {
-                                Ok(json) => Ok(json),
-                                Err(e) => {
-                                    error!("Failed to parse JSON: {}", e);
-                                    Err(e.to_string())
+                            Ok(res) => {
+                                let status = res.status();
+                                info!("Response status: {}", status);
+
+                                match res.text().await {
+                                    Ok(text) => {
+                                        // Log the first 500 chars of the response for debugging
+                                        let log_text = if text.len() > 500 {
+                                            format!("{}...", &text[..500])
+                                        } else {
+                                            text.clone()
+                                        };
+                                        info!("Response body preview: {}", log_text);
+
+                                        match serde_json::from_str::<serde_json::Value>(&text) {
+                                            Ok(json) => Ok(json),
+                                            Err(e) => {
+                                                error!("Failed to parse JSON: {}", e);
+                                                Err(format!(
+                                                    "Failed to parse JSON: {}. Body: {}",
+                                                    e, log_text
+                                                ))
+                                            }
+                                        }
+                                    }
+                                    Err(e) => {
+                                        error!("Failed to read response text: {}", e);
+                                        Err(e.to_string())
+                                    }
                                 }
-                            },
+                            }
                             Err(e) => {
                                 error!("Request failed: {}", e);
                                 Err(e.to_string())

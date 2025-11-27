@@ -45,7 +45,7 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                     className={clsx(
                       'flex flex-1 items-center justify-center gap-2 rounded-md py-1.5 text-sm font-medium transition-all',
                       theme === t.id
-                        ? 'bg-white text-black shadow-sm dark:bg-gray-600 dark:text-white'
+                        ? 'bg-macos-active text-white shadow-sm'
                         : 'text-macos-text hover:bg-black/5 dark:hover:bg-white/10',
                     )}
                   >

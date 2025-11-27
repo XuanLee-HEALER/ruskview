@@ -14,6 +14,7 @@ export default {
         macos: {
           window: "var(--macos-window-bg)",
           sidebar: "var(--macos-sidebar-bg)",
+          surface: "var(--macos-surface)",
           active: "var(--macos-active)",
           activeHover: "var(--macos-active)", // Simplified for now, or use opacity
           text: "var(--macos-text)",
@@ -23,6 +24,12 @@ export default {
           input: "var(--macos-input-bg)",
           accent: "var(--macos-active)",
           accentSecondary: "var(--macos-active-secondary)",
+          // Semantic
+          green: "var(--macos-green)",
+          blue: "var(--macos-blue)",
+          red: "var(--macos-red)",
+          yellow: "var(--macos-yellow)",
+          brown: "var(--macos-brown)",
         }
       },
       fontFamily: {

@@ -2,7 +2,7 @@
 
 > A high-performance, native-feeling Elasticsearch/OpenSearch client for macOS.
 
-![Version](https://img.shields.io/badge/version-0.0.1-blue.svg)
+![Version](https://img.shields.io/badge/version-0.0.2-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![Tauri](https://img.shields.io/badge/Tauri-v2-orange.svg)
 

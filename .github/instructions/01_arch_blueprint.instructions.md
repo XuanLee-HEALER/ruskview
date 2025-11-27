@@ -82,7 +82,11 @@ ruskview/
 └── README.md            # Project Scope & Functional Requirements
 ```
 
-# Git Workflow & Contribution Guidelines
+## Git Workflow & Contribution Guidelines
+
+### General Rules
+
+- **Working Directory**: All git operations must be performed from the **project root directory** (e.g., `ruskview/`), not from subdirectories like `src-tauri/`. Use absolute paths when scripting or automating to ensure consistency.
 
 ## Branching Strategy
 

@@ -37,10 +37,10 @@ function ToastItem({ toast }: { toast: Toast }) {
   }, []);
 
   const icons = {
-    success: <CheckCircle className="h-5 w-5 text-green-500" />,
-    error: <AlertCircle className="h-5 w-5 text-red-500" />,
-    info: <Info className="h-5 w-5 text-blue-500" />,
-    warning: <AlertTriangle className="h-5 w-5 text-yellow-500" />,
+    success: <CheckCircle className="h-5 w-5 text-macos-green" />,
+    error: <AlertCircle className="h-5 w-5 text-macos-red" />,
+    info: <Info className="h-5 w-5 text-macos-blue" />,
+    warning: <AlertTriangle className="h-5 w-5 text-macos-yellow" />,
   };
 
   return (

@@ -15,12 +15,12 @@ interface AppState {
   isAuthenticated: boolean;
   currentProfile: AuthProfile | null;
   currentCluster: string | null;
-  currentView: 'cluster' | 'search' | 'indices';
+  currentView: string;
   theme: Theme;
 
   login: (profile: AuthProfile) => void;
   logout: () => void;
-  setView: (view: 'cluster' | 'search' | 'indices') => void;
+  setView: (view: string) => void;
   setTheme: (theme: Theme) => void;
 }
 
@@ -28,7 +28,7 @@ export const useAppStore = create<AppState>((set) => ({
   isAuthenticated: false,
   currentProfile: null,
   currentCluster: null,
-  currentView: 'cluster',
+  currentView: 'dashboard',
   theme: 'system',
 
   login: (profile) =>

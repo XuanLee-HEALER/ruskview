@@ -1,33 +1,19 @@
+use crate::es::client::create_client;
 use crate::es::cluster::ClusterRequest;
 use crate::es::index::IndexRequest;
 use crate::models::connection::ConnectionProfile;
-use crate::state::{AppState, RequestJob};
+use crate::state::AppState;
 use std::collections::HashMap;
 use tauri::State;
-use tokio::sync::oneshot;
+use tracing::info;
 
 #[tauri::command]
 pub async fn test_connection(
     profile: ConnectionProfile,
-    state: State<'_, AppState>,
+    _state: State<'_, AppState>,
 ) -> Result<serde_json::Value, String> {
-    let (tx, rx) = oneshot::channel();
-
-    let job = RequestJob {
-        method: "GET".to_string(),
-        path: "/".to_string(),
-        body: None,
-        profile_override: Some(profile),
-        responder: tx,
-    };
-
-    state
-        .request_queue
-        .send(job)
-        .await
-        .map_err(|e| e.to_string())?;
-
-    rx.await.map_err(|e| e.to_string())?
+    let client = create_client(profile);
+    client.proxy_request("GET", "/", None).await
 }
 
 #[tauri::command]
@@ -44,6 +30,10 @@ pub async fn connect_to_cluster(
                 let mut current = state.current_profile.write().await;
                 *current = Some(profile.clone());
 
+                // Update active client
+                let mut client_guard = state.active_client.write().await;
+                *client_guard = Some(create_client(profile.clone()));
+
                 // Return a mock success response or minimal info since we trust the cache
                 return Ok(serde_json::json!({
                     "status": "connected_from_cache",
@@ -54,28 +44,18 @@ pub async fn connect_to_cluster(
     }
 
     // First test the connection
-    let (tx, rx) = oneshot::channel();
-
-    let job = RequestJob {
-        method: "GET".to_string(),
-        path: "/".to_string(),
-        body: None,
-        profile_override: Some(profile.clone()),
-        responder: tx,
-    };
-
-    state
-        .request_queue
-        .send(job)
-        .await
-        .map_err(|e| e.to_string())?;
-
-    let result = rx.await.map_err(|e| e.to_string())??;
+    let client = create_client(profile.clone());
+    let result = client.proxy_request("GET", "/", None).await?;
 
     // If successful, update state and cache
     {
         let mut current = state.current_profile.write().await;
         *current = Some(profile.clone());
+    }
+
+    {
+        let mut client_guard = state.active_client.write().await;
+        *client_guard = Some(client);
     }
 
     {
@@ -97,23 +77,13 @@ pub async fn proxy_request(
     body: Option<serde_json::Value>,
     state: State<'_, AppState>,
 ) -> Result<serde_json::Value, String> {
-    let (tx, rx) = oneshot::channel();
+    let client_guard = state.active_client.read().await;
 
-    let job = RequestJob {
-        method,
-        path,
-        body,
-        profile_override: None,
-        responder: tx,
-    };
-
-    state
-        .request_queue
-        .send(job)
-        .await
-        .map_err(|e| e.to_string())?;
-
-    rx.await.map_err(|e| e.to_string())?
+    if let Some(client) = client_guard.as_ref() {
+        client.proxy_request(&method, &path, body).await
+    } else {
+        Err("No active connection".to_string())
+    }
 }
 
 #[tauri::command]
@@ -122,6 +92,7 @@ pub async fn perform_cluster_op(
     params: HashMap<String, String>,
     state: State<'_, AppState>,
 ) -> Result<serde_json::Value, String> {
+    info!("perform_cluster_op called with operation: {}", operation);
     let req = ClusterRequest::new(operation, params);
     proxy_request(req.method().to_string(), req.build_path(), None, state).await
 }
